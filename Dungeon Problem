@@ -51,7 +51,7 @@ int main()
     queue<int> qx;
     queue<int> qy;
     qx.push(sx);
-    qx.push(sy);
+    qy.push(sy);
     vector<vector<int>> visited(r,vector<int>(c,0));
     visited[sx][sy]=1;
     vector<vector<int>> prevx(r,vector<int>(c,-1));
