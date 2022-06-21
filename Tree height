@@ -1,0 +1,67 @@
+Problem Statement
+
+Given a tree return the height of the tree (It is necesserly not binary tree)
+
+Input
+
+Consider the tree is already stored in adjacency list
+
+Output
+
+Return the height of the tree
+
+Problem Idea
+We can use DFS or BFS to find the height
+
+Solution
+
+n = number of nodes in the tree
+BFS Solution
+
+int height(map<int,vector<int>> &m,int root)
+{
+     queue<int> q;
+     vector<int> visited(n,0);
+     q.push(root);
+     int h=0;
+     while(!q.empty())
+     {
+          queue<int> level;
+          while(!q.empty())
+          {
+               level.push(q.front());
+               q.pop();
+          }
+          while(!level.empty())
+          {
+               vector<int> t=m[level.front()];
+               for(int i=0;i<t.size();i++)
+                    q.push(t[i]);
+               level.pop();
+          }
+          h++;
+     }
+     return h;
+}
+
+DFS Solution
+
+vector<int> visited(n,0);
+void dfs(map<int,vector<int>> &m,int node,int h,int *maxi)
+{
+     if(h>*maxi)
+         *maxi=h;
+     if(visited[node])
+         return;
+     visited[node]=1;
+     vector<int> temp=m[node];
+     for(int i=0;i<temp.size();i++)
+         dfs(m,temp[i],h+1,maxi);
+     return;
+}
+int height(map<int,vector<int>> &m,int root)
+{
+     int maxi=INT_MIN;
+     dfs(m,root,1,&maxi);
+     return maxi;
+}
