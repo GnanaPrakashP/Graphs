@@ -1,0 +1,35 @@
+Problem Statement
+
+You are trapped in a 2D dungeon and need to find the quickest way out. The dungeon is composed of unit cubes which may or may not be filled with rock. It takes one 
+minute to move one unit north, south, east, west. You cannot move diagonally and the maze is surrounded by solid rock on all sides. Is it possible to escape ?
+
+Input 
+
+First line contains two numbers rows and columns. Next row lines contains strings of length equal to column. Where "." represents empty cell and "#" represents cell 
+contains rock. Next two line represent the starting and ending cordinates.
+
+Output
+
+If possible to escape then output two lines first line contains "Yes" and the second line contains shortest the path from the starting node to endind node. 
+It not possible to escape then output "No".
+
+Sample Input
+
+5 7
+...#...
+.#...#.
+.#.....
+..##...
+#.#..#.
+0 0
+4 3
+
+Sample Output
+
+Yes
+(0,0)->(0,1)->(0,2)->(1,2)->(1,3)->(2,3)->(2,4)->(3,4)->(4,4)->(4,3)
+
+Problem Idea
+
+BFS Approch and inorder to store the cordinates into a single queue use two queues and store the x-cordinate into one queue and y-cordinate into the other queue.
+
