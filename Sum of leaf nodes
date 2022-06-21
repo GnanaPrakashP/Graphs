@@ -1,0 +1,38 @@
+Problem Statement
+
+Consider a tree (Need not be binary tree) output the sum of all its leaf node values
+
+Input
+
+Consider tree is already stored in an adjacency list
+
+Output
+
+return the sum of all the leaf node
+
+Problem Idea
+
+As we need to traverse the entire tree which is nothing but a graph we can use either DFS or BFS
+
+Solution
+
+n = total number of nodes in the tree
+vector<int> visited(n,0);
+void dfs(int node,int *sum)
+{
+     if(visited[node])
+         return;
+     visited[node]=1;
+     vector<int> temp=m[node];
+     if(temp.size()==0)
+         *sum+=temp;
+     for(int i=0;i<temp.size();i++)
+         dfs(temp[i],sum);
+     return;
+}
+int SumOfLeafNode(map<int,vector<int>> &m,int root)
+{
+     int sum=0;
+     dfs(root,&sum);
+     return sum;
+}
