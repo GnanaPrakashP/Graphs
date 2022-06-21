@@ -33,3 +33,99 @@ Problem Idea
 
 BFS Approch and inorder to store the cordinates into a single queue use two queues and store the x-cordinate into one queue and y-cordinate into the other queue.
 
+C++ Solution
+
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int r,c;
+    cin>>r>>c;
+    vector<string> s(r);
+    for(int i=0;i<r;i++)
+        cin>>s[i];
+    int sx,sy;          // x == r and y == c
+    cin>>sx>>sy;
+    int ex,ey;
+    cin>>ex>>ey;
+    queue<int> qx;
+    queue<int> qy;
+    qx.push(sx);
+    qx.push(sy);
+    vector<vector<int>> visited(r,vector<int>(c,0));
+    visited[sx][sy]=1;
+    vector<vector<int>> prevx(r,vector<int>(c,-1));
+    vector<vector<int>> prevy(r,vector<int>(c,-1));
+    bool path_exist=false;
+    while(!qx.empty())
+    {
+        int tempx=qx.front();
+        qx.pop();
+        int tempy=qy.front();
+        qy.pop();
+        if(tempx==ex&&tempy==ey)
+        {
+            path_exist=true;
+            break;
+        }
+        if(tempy>0&&visited[tempx][tempy-1]==0&&s[tempx][tempy-1]=='.')
+        {
+            qx.push(tempx);
+            qy.push(tempy-1);
+            visited[tempx][tempy-1]=1;
+            prevx[tempx][tempy-1]=tempx;
+            prevy[tempx][tempy-1]=tempy;
+        }
+        if(tempx>0&&visited[tempx-1][tempy]==0&&s[tempx-1][tempy]=='.')
+        {
+            qx.push(tempx-1);
+            qy.push(tempy);
+            visited[tempx-1][tempy]=1;
+            prevx[tempx-1][tempy]=tempx;
+            prevy[tempx-1][tempy]=tempy;
+        }
+        if(tempy<c-1&&visited[tempx][tempy+1]==0&&s[tempx][tempy+1]=='.')
+        {
+            qx.push(tempx);
+            qy.push(tempy+1);
+            visited[tempx][tempy+1]=1;
+            prevx[tempx][tempy+1]=tempx;
+            prevy[tempx][tempy+1]=tempy;
+        }
+        if(tempx<r-1&&visited[tempx+1][tempy]==0&&s[tempx+1][tempy]=='.')
+        {
+            qx.push(tempx+1);
+            qy.push(tempy);
+            visited[tempx+1][tempy]=1;
+            prevx[tempx+1][tempy]=tempx;
+            prevy[tempx+1][tempy]=tempy;
+        }
+    }
+    if(path_exist)
+    {
+        cout<<"Yes\n";
+        vector<vector<int>> path;
+        vector<int> t={ex,ey};
+        path.push_back(t);
+        int tx=ex;
+        int ty=ey;
+        while(prevx[tx][ty]!=-1)
+        {
+            vector<int> temp(2);
+            temp[0]=prevx[tx][ty];
+            temp[1]=prevy[tx][ty];
+            path.push_back(temp);
+            tx=temp[0];
+            ty=temp[1];
+        }
+        for(int i=path.size()-1;i>=0;i--)
+        {
+            cout<<"("<<path[i][0]<<","<<path[i][1]<<")";
+            if(i)
+                cout<<"->";
+        }
+        cout<<"\n";
+    }
+    else
+        cout<<"No\n";
+}
