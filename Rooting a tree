@@ -1,0 +1,30 @@
+Problem Statement
+
+We will be having an undirected tree and we need to convert this undirected tree to a rooted tree.
+
+Input
+
+The undirected tree is represented in the adjacency list
+
+Output
+
+Output an rooted tree rooted at some vertex
+
+Problem Idea
+
+This is generally done using DFS
+
+Solution
+
+n = number of nodes in a tree
+vector<int> visited(n,0);
+void dfs(map<int,vector<int>> &m,int node)
+{
+     if(visited[node])
+         return;
+     visited[node]=1;
+     vector<int> temp=m[node];
+     for(int i=0;i<temp.size();i++)
+         dfs(m,temp[i]);
+     return;
+}
